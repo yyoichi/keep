@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
+.Editor {
+  width: 640px;
+  height: 320px;
+  border: 1px solid #202020;
+  border-radius: 4px;
+  resize: none;
+}
+
+.Preview {
+  width: 640px;
+  height: 320px;
+  border: 1px solid #202020;
+  border-radius: 4px;
+}

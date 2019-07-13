@@ -1,0 +1,7 @@
+# Config files
+.eslintrc.js
+.prettierrc.js
+webpack.config.js
+
+# Distribution files
+dist/**/*
