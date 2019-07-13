@@ -3,4 +3,6 @@
   min-height: 320px;
   border: 1px solid #202020;
   border-radius: 4px;
+  outline: none;
+  padding: 12px 16px;
 }
