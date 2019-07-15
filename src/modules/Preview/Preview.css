@@ -1,0 +1,78 @@
+.Preview {
+  width: 640px;
+  min-height: 320px;
+  max-height: 80vh;
+  border: 1px solid #202020;
+  border-radius: 4px;
+  padding: 12px 16px;
+  overflow: auto;
+}
+
+.Preview h1,
+.Preview h2 {
+  position: relative;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #eaecef;
+}
+
+.Preview pre {
+  background-color: #f6f8fa;
+  border-radius: 2px;
+  padding: 16px;
+  overflow: auto;
+  word-wrap: normal;
+  margin: 0 0 16px;
+}
+
+.Preview :not(pre) code {
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 3px;
+  margin: 0;
+  padding: 0.2em 0.4em;
+}
+
+.Preview blockquote {
+  border-left: 0.25em solid #dfe2e5;
+  color: #6a737d;
+  padding: 0 1em;
+}
+
+.Preview ul,
+.Preview ol {
+  padding-left: 2em;
+}
+
+.Preview ul ul,
+.Preview ol ol,
+.Preview ol ul,
+.Preview ul ol {
+  margin-bottom: 0;
+}
+
+.Preview li + li {
+  margin-top: 0.25em;
+}
+
+.Preview table {
+  display: block;
+  overflow: auto;
+  width: 100%;
+}
+
+.Preview table td,
+.Preview table th {
+  border: 1px solid #dfe2e5;
+  padding: 6px 13px;
+}
+
+.Preview table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+.Preview hr {
+  background-color: #e1e4e8;
+  border: 0;
+  height: 0.25em;
+  margin: 24px 0;
+  padding: 0;
+}
