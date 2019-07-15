@@ -1,21 +1,26 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { render } from 'react-dom';
-import ReactMarkdown from 'react-markdown';
-import breaks from 'remark-breaks';
 import Editor from './modules/Editor/Editor';
-import styles from './index.css';
+import Preview from './modules/Preview/Preview';
+import './index.css';
 
 const App = () => {
   const [isEdit, setEdit] = useState(false);
   const [body, setBody] = useState('');
 
-  const onChange = useCallback((value: string): void => {
+  useEffect(() => {
+    const savedValue = localStorage.getItem('value');
+    setBody(savedValue);
+  }, []);
+
+  const onInput = useCallback((value: string): void => {
     setBody(value);
   }, []);
 
   const toPreview = useCallback((): void => {
+    localStorage.setItem('value', body);
     setEdit(false);
-  }, []);
+  }, [body]);
 
   const toEditor = useCallback((): void => {
     setEdit(true);
@@ -24,11 +29,9 @@ const App = () => {
   return (
     <div>
       {isEdit ? (
-        <Editor value={body} onInput={onChange} onBlur={toPreview} />
+        <Editor value={body} onInput={onInput} onBlur={toPreview} />
       ) : (
-        <div className={styles.Preview} onClick={toEditor}>
-          <ReactMarkdown source={body} plugins={[breaks]} />
-        </div>
+        <Preview value={body} onClick={toEditor} />
       )}
     </div>
   );
