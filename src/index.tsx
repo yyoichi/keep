@@ -1,38 +1,52 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { render } from 'react-dom';
-import Editor from './modules/Editor/Editor';
-import Preview from './modules/Preview/Preview';
+import { Keep } from './domain/keep';
+import NewKeepForm from './modules/NewKeepForm/NewKeepForm';
+import KeepList from './modules/KeepList/KeepList';
+import KeepListItem from './modules/KeepListItem/KeepListItem';
 import './index.css';
 
 const App = () => {
-  const [isEdit, setEdit] = useState(false);
-  const [body, setBody] = useState('');
+  const [keeps, setKeeps] = useState<Keep[]>([]);
 
   useEffect(() => {
-    const savedValue = localStorage.getItem('value');
-    setBody(savedValue);
+    const savedKeeps = localStorage.getItem('keeps');
+    if (savedKeeps) {
+      const keeps = JSON.parse(savedKeeps);
+      setKeeps(keeps);
+    }
   }, []);
 
-  const onInput = useCallback((value: string): void => {
-    setBody(value);
+  const save = useCallback((keeps: Keep[]) => {
+    localStorage.setItem('keeps', JSON.stringify(keeps));
   }, []);
 
-  const toPreview = useCallback((): void => {
-    localStorage.setItem('value', body);
-    setEdit(false);
-  }, [body]);
+  const onNewKeepFormBlur = useCallback(
+    (value: string) => {
+      if (value.trim()) {
+        const newKeeps = [...keeps, { id: keeps.length, value }];
+        save(newKeeps);
+        setKeeps(newKeeps);
+      }
+    },
+    [keeps, save]
+  );
 
-  const toEditor = useCallback((): void => {
-    setEdit(true);
-  }, []);
+  const deleteKeep = useCallback(
+    (id: number) => {
+      const newKeeps = keeps.filter(keep => keep.id !== id);
+      save(newKeeps);
+      setKeeps(newKeeps);
+    },
+    [keeps, save]
+  );
+
+  const keepItems = useMemo(() => keeps.map(keep => <KeepListItem keep={keep} onDelete={deleteKeep} key={keep.id}></KeepListItem>), [keeps, deleteKeep]);
 
   return (
     <div>
-      {isEdit ? (
-        <Editor value={body} onInput={onInput} onBlur={toPreview} />
-      ) : (
-        <Preview value={body} onClick={toEditor} />
-      )}
+      <NewKeepForm onBlur={onNewKeepFormBlur} />
+      <KeepList>{keepItems}</KeepList>
     </div>
   );
 };

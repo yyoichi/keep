@@ -4,14 +4,18 @@ module.exports = {
     ecmaVersion: 2019,
     sourceType: 'module'
   },
-  plugins: ['@typescript-eslint', 'react'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended'
-  ],
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  },
+  plugins: ['@typescript-eslint', 'react', 'react-hooks'],
+  extends: ['plugin:@typescript-eslint/recommended', 'plugin:react/recommended'],
   rules: {
     quotes: ['error', 'single'],
     '@typescript-eslint/indent': ['error', 2],
-    '@typescript-eslint/explicit-function-return-type': ['off']
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn'
   }
 };
