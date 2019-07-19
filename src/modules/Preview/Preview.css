@@ -1,9 +1,4 @@
 .Preview {
-  width: 640px;
-  min-height: 320px;
-  max-height: 80vh;
-  border: 1px solid #202020;
-  border-radius: 4px;
   padding: 12px 16px;
   overflow: auto;
 }
