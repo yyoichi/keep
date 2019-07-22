@@ -19,7 +19,7 @@ const Editor = (props: Props) => {
 
   const onBlur = useCallback(() => {
     const text = editor.current.innerText.replace(/\n{3,}/gm, '\n\n');
-    props.onBlur(text);
+    props.onBlur && props.onBlur(text);
   }, [props]);
 
   return <div className={cns} onBlur={onBlur} ref={editor} contentEditable />;

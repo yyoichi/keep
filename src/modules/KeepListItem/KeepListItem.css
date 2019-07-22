@@ -16,6 +16,10 @@
   display: flex;
 }
 
+.open {
+  visibility: hidden;
+}
+
 .tools {
   position: absolute;
   bottom: 0;
@@ -38,4 +42,12 @@
   font-weight: bold;
   cursor: pointer;
   outline: none;
+}
+
+.modal {
+  width: 600px;
+  max-height: 80vh;
+  background-color: #fff;
+  border-radius: 4px;
+  overflow: auto;
 }
