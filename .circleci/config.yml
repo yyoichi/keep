@@ -6,21 +6,27 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
-      - restore_cache:
+       - restore_cache:
+          name: Restore Yarn Package Cache
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
+            - yarn-packages-{{ checksum "yarn.lock" }}
 
-      - run: yarn install
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
 
       - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - ~/.cache/yarn
 
       - run: yarn build:prod
 
-      - run: git config user.name "CircleCI"
-      - run: git config user.email "circleci@circleci.com"
+      - run: git config user.name $GIT_USER_NAME
+      - run: git config user.email $GIT_USER_EMAIL
+      - add_ssy_keys:
+          fingerprints:
+            - "31:70:e1:93:08:c5:72:8e:3f:14:a5:20:44:7a:ca:f7"
 
       - run: yarn deploy
