@@ -4,6 +4,11 @@ jobs:
   build:
     docker:
       - image: circleci/node:latest
+
+    add_ssh_keys:
+      fingerprints:
+        - '31:70:e1:93:08:c5:72:8e:3f:14:a5:20:44:7a:ca:f7'
+
     steps:
       - checkout
 
@@ -13,8 +18,5 @@ jobs:
 
       - run: git config user.name $GIT_USER_NAME
       - run: git config user.email $GIT_USER_EMAIL
-      - add_ssy_keys:
-          fingerprints:
-            - '31:70:e1:93:08:c5:72:8e:3f:14:a5:20:44:7a:ca:f7'
 
       - run: yarn deploy
