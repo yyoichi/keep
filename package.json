@@ -10,10 +10,12 @@
     "build:prod": "yarn clean && webpack --mode production",
     "build:dev": "yarn clean && webpack --mode development",
     "clean": "rimraf dist",
-    "lint": "eslint --ext .ts,.tsx src/"
+    "lint": "eslint --ext .ts,.tsx src/",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "clsx": "^1.0.4",
+    "gh-pages": "^2.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-markdown": "^4.1.0",
