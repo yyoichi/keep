@@ -19,4 +19,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn build:prod
+
+      - run: git config user.name "CircleCI"
+      - run: git config user.email "circleci@circleci.com"
+
       - run: yarn deploy
