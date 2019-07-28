@@ -6,10 +6,11 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --mode development",
-    "build": "yarn build:dev",
-    "build:prod": "yarn clean && webpack --mode production",
-    "build:dev": "yarn clean && webpack --mode development",
+    "build": "yarn build:development",
+    "build:production": "yarn clean && webpack --mode production",
+    "build:development": "yarn clean && webpack --mode development",
     "clean": "rimraf dist",
+    "test": "yarn lint",
     "lint": "eslint --ext .ts,.tsx src/",
     "deploy": "gh-pages -d dist"
   },
