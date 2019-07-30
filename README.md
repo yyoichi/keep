@@ -1,8 +1,6 @@
 # Keep
 
-<div align="center">
-	[![CircleCI](https://circleci.com/gh/yyoichi/keep/tree/master.svg?style=svg)](https://circleci.com/gh/yyoichi/keep/tree/master)
-</div>
+[![CircleCI](https://circleci.com/gh/yyoichi/keep/tree/master.svg?style=svg)](https://circleci.com/gh/yyoichi/keep/tree/master)
 
 ## Description
 
