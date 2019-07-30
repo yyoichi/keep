@@ -16,8 +16,8 @@ export interface KeepsContext {
   keeps: Keep[];
   addKeep: (newKeep: Keep) => void;
   addKeeps: (newKeeps: Keep[]) => void;
-  editKeep: (id: string, value: string) => void;
   deleteKeep: (id: string) => void;
+  updateKeep: (id: string, value: string) => void;
   openKeep: (id: string) => void;
   closeKeep: (id: string) => void;
 }
@@ -37,7 +37,7 @@ const KeepsProvider = ({ children }: { children: ReactNode }) => {
     setKeeps(keeps => [...keeps, ...newKeeps]);
   }, []);
 
-  const editKeep = useCallback((id: string, value: string) => {
+  const updateKeep = useCallback((id: string, value: string) => {
     setKeeps(keeps =>
       keeps.map(keep => {
         if (keep.id === id) {
@@ -86,8 +86,8 @@ const KeepsProvider = ({ children }: { children: ReactNode }) => {
         keeps,
         addKeep,
         addKeeps,
-        editKeep,
         deleteKeep,
+        updateKeep,
         openKeep,
         closeKeep
       }}

@@ -9,7 +9,7 @@ const App = ({
   keeps,
   addKeep,
   addKeeps,
-  editKeep,
+  updateKeep,
   deleteKeep,
   openKeep,
   closeKeep
@@ -54,14 +54,14 @@ const App = ({
             onClose={(id: string, value: string) => {
               closeKeep(keep.id);
               if (value.trim()) {
-                editKeep(id, value);
+                updateKeep(id, value);
               }
             }}
             key={keep.id}
           ></KeepListItem>
         );
       }),
-    [keeps, deleteKeep, openKeep, closeKeep, editKeep]
+    [keeps, deleteKeep, openKeep, closeKeep, updateKeep]
   );
 
   return (
