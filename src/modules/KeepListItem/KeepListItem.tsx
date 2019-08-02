@@ -29,10 +29,13 @@ const KeepListItem = ({ keep, isOpen, onDelete, onOpen, onClose }: Props) => {
     setEdit(true);
   }, []);
 
-  const onEditorBlur = useCallback((value: string) => {
-    onClose(keep.id, value);
-    setEdit(false);
-  }, [keep.id, onClose]);
+  const onEditorBlur = useCallback(
+    (value: string) => {
+      onClose(keep.id, value);
+      setEdit(false);
+    },
+    [keep.id, onClose]
+  );
 
   const cns = clsx(styles.root, { [styles.open]: isOpen });
 
@@ -46,10 +49,7 @@ const KeepListItem = ({ keep, isOpen, onDelete, onOpen, onClose }: Props) => {
           </button>
         </div>
       </div>
-      <Modal
-        className={styles.modal}
-        isOpen={isOpen}
-      >
+      <Modal className={styles.modal} isOpen={isOpen}>
         {isEdit ? (
           <Editor defaultValue={keep.value} onBlur={onEditorBlur} />
         ) : (

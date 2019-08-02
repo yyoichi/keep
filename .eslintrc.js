@@ -9,11 +9,16 @@ module.exports = {
       version: 'detect'
     }
   },
-  plugins: ['@typescript-eslint', 'react', 'react-hooks'],
-  extends: ['plugin:@typescript-eslint/recommended', 'plugin:react/recommended'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'prettier'],
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'prettier',
+    'prettier/@typescript-eslint',
+    'prettier/react'
+  ],
   rules: {
-    quotes: ['error', 'single'],
-    '@typescript-eslint/indent': ['error', 2],
+    'prettier/prettier': 'error',
     '@typescript-eslint/explicit-function-return-type': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn'

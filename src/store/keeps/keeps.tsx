@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  ReactNode,
-  isValidElement,
-  useState,
-  useCallback
-} from 'react';
+import React, { createContext, ReactNode, isValidElement, useState, useCallback } from 'react';
 
 export interface Keep {
   id: string;
@@ -81,17 +75,7 @@ const KeepsProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <KeepsContext.Provider
-      value={{
-        keeps,
-        addKeep,
-        addKeeps,
-        deleteKeep,
-        updateKeep,
-        openKeep,
-        closeKeep
-      }}
-    >
+    <KeepsContext.Provider value={{ keeps, addKeep, addKeeps, deleteKeep, updateKeep, openKeep, closeKeep }}>
       {children}
     </KeepsContext.Provider>
   );

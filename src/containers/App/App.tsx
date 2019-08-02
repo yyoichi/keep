@@ -5,15 +5,7 @@ import KeepList from '../../modules/KeepList/KeepList';
 import KeepListItem from '../../modules/KeepListItem/KeepListItem';
 import NewKeepForm from '../../modules/NewKeepForm/NewKeepForm';
 
-const App = ({
-  keeps,
-  addKeep,
-  addKeeps,
-  updateKeep,
-  deleteKeep,
-  openKeep,
-  closeKeep
-}: KeepsContext) => {
+const App = ({ keeps, addKeep, addKeeps, updateKeep, deleteKeep, openKeep, closeKeep }: KeepsContext) => {
   useEffect(() => {
     const savedKeeps = localStorage.getItem('keeps');
     if (savedKeeps) {
