@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import clsx from 'clsx';
 import Editor from '../Editor/Editor';
 import styles from './NewKeepForm.css';
@@ -7,16 +7,16 @@ interface Props {
   onBlur: (value: string) => void;
 }
 
-const NewKeepForm = (props: Props) => {
+const NewKeepForm = ({ onBlur }: Props) => {
   const [isOpen, toggleOpen] = useState(false);
   const cns = clsx(styles.root, { [styles.open]: isOpen });
 
-  const onBlur = useCallback(
+  const onEditorBlur = useCallback(
     (value: string) => {
-      props.onBlur(value);
+      onBlur(value);
       toggleOpen(isOpen => !isOpen);
     },
-    [props]
+    [onBlur]
   );
 
   const onClick = useCallback(() => {
@@ -24,7 +24,7 @@ const NewKeepForm = (props: Props) => {
   }, []);
 
   return isOpen ? (
-    <Editor className={cns} onBlur={onBlur} />
+    <Editor className={cns} onBlur={onEditorBlur} />
   ) : (
     <div className={cns} onClick={onClick}>
       <p className={styles.label}>New keep...</p>
@@ -32,4 +32,4 @@ const NewKeepForm = (props: Props) => {
   );
 };
 
-export default NewKeepForm;
+export default memo((props: Props) => <NewKeepForm {...props} />);

@@ -6,7 +6,7 @@ import clsx from 'clsx';
 interface Props {
   className?: string;
   isOpen: boolean;
-  outSideClick?: () => void;
+  outSideClick: () => void;
   children: ReactNode;
 }
 

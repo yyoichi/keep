@@ -5,8 +5,8 @@ interface Props {
   children: ReactNode;
 }
 
-const KeepList = (props: Props) => {
-  return <div className={styles.root}>{props.children}</div>;
+const KeepList = ({ children }: Props) => {
+  return <div className={styles.root}>{children}</div>;
 };
 
 export default KeepList;

@@ -20,6 +20,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     '@typescript-eslint/explicit-function-return-type': 'off',
+    'react/display-name': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn'
   }
