@@ -1,12 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
-import KeepsProvider, { KeepsConsumer } from './store/keeps/keeps';
+import { Provider } from 'react-redux';
+import store from './store';
 import App from './containers/App/App';
 import './index.css';
 
 render(
-  <KeepsProvider>
-    <KeepsConsumer>{state => <App {...state} />}</KeepsConsumer>
-  </KeepsProvider>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.querySelector('#root')
 );

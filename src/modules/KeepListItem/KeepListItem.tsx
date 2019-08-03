@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, memo } from 'react';
 import clsx from 'clsx';
-import { Keep } from '../../store/keeps/keeps';
+import { Keep } from '../../store/keeps';
 import Preview from '../Preview/Preview';
 import styles from './KeepListItem.css';
 import Modal from '../Modal/Modal';
@@ -37,6 +37,10 @@ const KeepListItem = ({ keep, isOpen, onDelete, onOpen, onClose }: Props) => {
     [keep.id, onClose]
   );
 
+  const onModalClose = useCallback(() => {
+    onClose(keep.id, keep.value);
+  }, [keep.id, keep.value, onClose]);
+
   const cns = clsx(styles.root, { [styles.open]: isOpen });
 
   return (
@@ -49,7 +53,7 @@ const KeepListItem = ({ keep, isOpen, onDelete, onOpen, onClose }: Props) => {
           </button>
         </div>
       </div>
-      <Modal className={styles.modal} isOpen={isOpen}>
+      <Modal className={styles.modal} isOpen={isOpen} outSideClick={onModalClose}>
         {isEdit ? (
           <Editor defaultValue={keep.value} onBlur={onEditorBlur} />
         ) : (
@@ -60,4 +64,4 @@ const KeepListItem = ({ keep, isOpen, onDelete, onOpen, onClose }: Props) => {
   );
 };
 
-export default KeepListItem;
+export default memo((props: Props) => <KeepListItem {...props} />);
