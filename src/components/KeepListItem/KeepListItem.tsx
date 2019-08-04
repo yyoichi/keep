@@ -1,10 +1,10 @@
 import React, { useCallback, useState, memo } from 'react';
 import clsx from 'clsx';
 import { Keep } from '../../store/keeps';
-import Preview from '../Preview/Preview';
+import Preview from '../../modules/Preview/Preview';
 import styles from './KeepListItem.css';
-import Modal from '../Modal/Modal';
-import Editor from '../Editor/Editor';
+import Modal from '../../modules/Modal/Modal';
+import Editor from '../../modules/Editor/Editor';
 
 interface Props {
   keep: Keep;

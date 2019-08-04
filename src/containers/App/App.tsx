@@ -1,9 +1,9 @@
 import React, { useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { generateId } from '../../utils';
-import KeepList from '../../modules/KeepList/KeepList';
-import KeepListItem from '../../modules/KeepListItem/KeepListItem';
-import NewKeepForm from '../../modules/NewKeepForm/NewKeepForm';
+import KeepList from '../../components/KeepList/KeepList';
+import KeepListItem from '../../components/KeepListItem/KeepListItem';
+import NewKeepForm from '../../components/NewKeepForm/NewKeepForm';
 import { RootState } from '../../store';
 import { Keep, keepActions } from '../../store/keeps';
 

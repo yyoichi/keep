@@ -1,6 +1,6 @@
 import React, { useState, useCallback, memo } from 'react';
 import clsx from 'clsx';
-import Editor from '../Editor/Editor';
+import Editor from '../../modules/Editor/Editor';
 import styles from './NewKeepForm.css';
 
 interface Props {
