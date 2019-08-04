@@ -1,0 +1,14 @@
+.root {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 36px;
+  background-color: #a0a0a0;
+}
+
+.edit {
+}
+
+.delete {
+}
