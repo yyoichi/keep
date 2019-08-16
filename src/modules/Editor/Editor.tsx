@@ -1,28 +1,36 @@
-import React, { useMemo, useCallback, useRef, useEffect } from 'react';
+import React, { useMemo, useCallback, useRef, useEffect, FormEvent } from 'react';
 import clsx from 'clsx';
 import styles from './Editor.css';
 
 interface Props {
   className?: string;
   defaultValue?: string;
-  onBlur: (value: string) => void;
+  onChange: (value: string) => void;
+  onBlur: () => void;
 }
 
-const Editor = (props: Props) => {
-  const cns = useMemo(() => clsx(styles.Editor, props.className), [props.className]);
+const Editor = ({ className, defaultValue, onChange, onBlur }: Props) => {
+  const rootClass = useMemo(() => clsx(styles.Editor, className), [className]);
   const editor = useRef<HTMLDivElement>(null);
 
+  // Set default value
   useEffect(() => {
-    editor.current.innerText = props.defaultValue || '';
+    editor.current.innerText = defaultValue || '';
     editor.current.focus();
-  }, [props.defaultValue]);
+  }, [defaultValue]);
 
-  const onBlur = useCallback(() => {
-    const text = editor.current.innerText.replace(/\n{3,}/gm, '\n\n');
-    props.onBlur && props.onBlur(text);
-  }, [props]);
+  const onTextChange = useCallback(
+    (e: FormEvent<HTMLDivElement>) => {
+      onChange(e.currentTarget.innerText);
+    },
+    [onChange]
+  );
 
-  return <div className={cns} onBlur={onBlur} ref={editor} contentEditable />;
+  const onEditorBlur = useCallback(() => {
+    onBlur();
+  }, [onBlur]);
+
+  return <div className={rootClass} onInput={onTextChange} onBlur={onEditorBlur} ref={editor} contentEditable />;
 };
 
 export default Editor;

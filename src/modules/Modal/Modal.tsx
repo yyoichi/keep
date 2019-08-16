@@ -10,25 +10,25 @@ interface Props {
   children: ReactNode;
 }
 
-const Modal = ({ className, isOpen, outSideClick, children }: Props) => {
-  const rootEl = useMemo(() => document.querySelector('#root'), []);
+const rootEle = document.querySelector('#root');
 
+const Modal = ({ className, isOpen, outSideClick, children }: Props) => {
   const onOutSideClick = useCallback(() => {
     outSideClick();
   }, [outSideClick]);
 
-  const cns = useMemo(() => clsx(styles.root, className), [className]);
+  const modalClass = useMemo(() => clsx(styles.modal, className), [className]);
 
   const Modal = useMemo(
     () =>
       createPortal(
         <>
           <div className={styles.outside} onClick={onOutSideClick} />
-          <div className={cns}>{children}</div>
+          <div className={modalClass}>{children}</div>
         </>,
-        rootEl
+        rootEle
       ),
-    [cns, children, onOutSideClick, rootEl]
+    [modalClass, children, onOutSideClick]
   );
 
   return isOpen ? Modal : null;

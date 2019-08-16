@@ -1,11 +1,11 @@
 import React, { useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { generateId } from '../../utils';
-import KeepList from '../../components/KeepList/KeepList';
-import KeepListItem from '../../components/KeepListItem/KeepListItem';
-import NewKeepForm from '../../components/NewKeepForm/NewKeepForm';
 import { RootState } from '../../store';
 import { Keep, keepActions } from '../../store/keeps';
+import AddForm from '../AddForm/AddForm';
+import KeepList from '../../components/KeepList/KeepList';
+import KeepListItem from '../../components/KeepListItem/KeepListItem';
 
 const keepsSelector = (state: RootState) => state.keeps;
 
@@ -13,6 +13,7 @@ const App = () => {
   const keeps = useSelector(keepsSelector);
   const dispatch = useDispatch();
 
+  // Load keeps from local storage
   useEffect(() => {
     const savedKeeps = localStorage.getItem('keeps');
     if (savedKeeps) {
@@ -25,6 +26,7 @@ const App = () => {
     localStorage.setItem('keeps', JSON.stringify(keeps));
   }, []);
 
+  // Save when keep changed
   useEffect(() => {
     save(keeps.items);
   }, [keeps, save]);
@@ -82,7 +84,7 @@ const App = () => {
 
   return (
     <div>
-      <NewKeepForm onBlur={onNewKeepFormBlur} />
+      <AddForm />
       <KeepList>{keepItems}</KeepList>
     </div>
   );

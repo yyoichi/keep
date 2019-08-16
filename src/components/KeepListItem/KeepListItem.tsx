@@ -1,10 +1,10 @@
 import React, { useCallback, useState, memo } from 'react';
 import clsx from 'clsx';
 import { Keep } from '../../store/keeps';
-import Preview from '../../modules/Preview/Preview';
-import styles from './KeepListItem.css';
 import Modal from '../../modules/Modal/Modal';
 import Editor from '../../modules/Editor/Editor';
+import KeepPreview from '../KeepPreview/KeepPreview';
+import styles from './KeepListItem.css';
 
 interface Props {
   keep: Keep;
@@ -29,13 +29,13 @@ const KeepListItem = ({ keep, isOpen, onDelete, onOpen, onClose }: Props) => {
     setEdit(true);
   }, []);
 
-  const onEditorBlur = useCallback(
-    (value: string) => {
-      onClose(keep.id, value);
-      setEdit(false);
-    },
-    [keep.id, onClose]
-  );
+  const onEditorBlur = useCallback(() => {
+    const value = '';
+    onClose(keep.id, value);
+    setEdit(false);
+  }, [keep.id, onClose]);
+
+  const onEditorChange = useCallback((value: string) => {}, []);
 
   const onModalClose = useCallback(() => {
     onClose(keep.id, keep.value);
@@ -46,18 +46,13 @@ const KeepListItem = ({ keep, isOpen, onDelete, onOpen, onClose }: Props) => {
   return (
     <>
       <div className={cns} onClick={onItemOpen}>
-        <Preview className={styles.KeepListItem} value={keep.value} />
-        <div className={styles.tools}>
-          <button className={styles.delete} onClick={onDeleteClick}>
-            ×
-          </button>
-        </div>
+        <KeepPreview className={styles.KeepListItem} keep={keep} onDelete={onDeleteClick} onEdit={onPreviewClick} />
       </div>
       <Modal className={styles.modal} isOpen={isOpen} outSideClick={onModalClose}>
         {isEdit ? (
-          <Editor defaultValue={keep.value} onBlur={onEditorBlur} />
+          <Editor defaultValue={keep.value} onBlur={onEditorBlur} onChange={onEditorChange} />
         ) : (
-          <Preview value={keep.value} onClick={onPreviewClick} />
+          <KeepPreview className={styles.KeepListItem} keep={keep} onDelete={onDeleteClick} onEdit={onPreviewClick} />
         )}
       </Modal>
     </>

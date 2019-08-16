@@ -75,7 +75,10 @@ export const keepActions = {
     payload: {
       id
     }
-  })
+  }),
+  save: (keeps: Keep[]): void => {
+    localStorage.setItem('keeps', JSON.stringify(keeps));
+  }
 };
 
 export interface KeepsState {
