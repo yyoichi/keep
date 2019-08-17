@@ -4,12 +4,13 @@ export interface Keep {
   id: string;
   value: string;
   isOpen: boolean;
+  isEditing: boolean;
 }
 
 interface KeepAddAction extends Action {
   type: '@@keep/add';
   payload: {
-    keep: Keep | Keep[];
+    keeps: Keep | Keep[];
   };
 }
 
@@ -42,13 +43,39 @@ interface KeepCloseAction extends Action {
   };
 }
 
-export type KeepActionTypes = KeepAddAction | KeepDeleteAction | KeepUpdateAction | KeepOpenAction | KeepCloseAction;
+interface KeepEditAction extends Action {
+  type: '@@keep/edit';
+  payload: {
+    id: string;
+  };
+}
+
+interface KeepPreviewAction extends Action {
+  type: '@@keep/preview';
+  payload: {
+    id: string;
+  };
+}
+
+interface KeepSaveAction extends Action {
+  type: '@@keep/save';
+}
+
+export type KeepActionTypes =
+  | KeepAddAction
+  | KeepDeleteAction
+  | KeepUpdateAction
+  | KeepOpenAction
+  | KeepCloseAction
+  | KeepEditAction
+  | KeepPreviewAction
+  | KeepSaveAction;
 
 export const keepActions = {
-  add: (keep: Keep | Keep[]): KeepActionTypes => ({
+  add: (keeps: Keep | Keep[]): KeepActionTypes => ({
     type: '@@keep/add',
     payload: {
-      keep
+      keeps
     }
   }),
   delete: (id: string): KeepActionTypes => ({
@@ -76,8 +103,21 @@ export const keepActions = {
       id
     }
   }),
-  save: (keeps: Keep[]): void => {
+  edit: (id: string): KeepActionTypes => ({
+    type: '@@keep/edit',
+    payload: {
+      id
+    }
+  }),
+  preview: (id: string): KeepActionTypes => ({
+    type: '@@keep/preview',
+    payload: {
+      id
+    }
+  }),
+  save: (keeps: Keep[]): KeepActionTypes => {
     localStorage.setItem('keeps', JSON.stringify(keeps));
+    return { type: '@@keep/save' };
   }
 };
 
@@ -88,15 +128,15 @@ export interface KeepsState {
 export const keepsReducer = (state: KeepsState = { items: [] }, action: KeepActionTypes): KeepsState => {
   switch (action.type) {
     case '@@keep/add':
-      if (Array.isArray(action.payload.keep)) {
+      if (Array.isArray(action.payload.keeps)) {
         return {
           ...state,
-          items: [...state.items, ...action.payload.keep]
+          items: [...state.items, ...action.payload.keeps]
         };
       } else {
         return {
           ...state,
-          items: [...state.items, action.payload.keep]
+          items: [...state.items, action.payload.keeps]
         };
       }
     case '@@keep/delete':
@@ -130,6 +170,26 @@ export const keepsReducer = (state: KeepsState = { items: [] }, action: KeepActi
         items: state.items.map(item => {
           if (item.id === action.payload.id) {
             item.isOpen = false;
+          }
+          return item;
+        })
+      };
+    case '@@keep/edit':
+      return {
+        ...state,
+        items: state.items.map(item => {
+          if (item.id === action.payload.id) {
+            item.isEditing = true;
+          }
+          return item;
+        })
+      };
+    case '@@keep/preview':
+      return {
+        ...state,
+        items: state.items.map(item => {
+          if (item.id === action.payload.id) {
+            item.isEditing = false;
           }
           return item;
         })

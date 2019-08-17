@@ -1,0 +1,7 @@
+.editor,
+.preview {
+  width: 600px;
+  max-height: 80vh;
+  background-color: #fafafa;
+  margin-bottom: 36px;
+}

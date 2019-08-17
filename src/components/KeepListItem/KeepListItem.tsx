@@ -1,22 +1,20 @@
-import React, { useCallback, useState, memo } from 'react';
+import React, { useCallback } from 'react';
 import clsx from 'clsx';
 import { Keep } from '../../store/keeps';
-import Modal from '../../modules/Modal/Modal';
-import Editor from '../../modules/Editor/Editor';
-import KeepPreview from '../KeepPreview/KeepPreview';
+import Preview from '../../modules/Preview/Preview';
+import Controller from '../../modules/Controller/Controller';
 import styles from './KeepListItem.css';
 
 interface Props {
+  className?: string;
   keep: Keep;
-  isOpen: boolean;
   onDelete: (id: string) => void;
   onOpen: (id: string) => void;
-  onClose: (id: string, value: string) => void;
+  onEditClick: (id: string) => void;
+  onPreviewClick: (id: string) => void;
 }
 
-const KeepListItem = ({ keep, isOpen, onDelete, onOpen, onClose }: Props) => {
-  const [isEdit, setEdit] = useState(false);
-
+const KeepListItem = ({ className, keep, onDelete, onOpen, onEditClick, onPreviewClick }: Props) => {
   const onDeleteClick = useCallback(() => {
     onDelete(keep.id);
   }, [keep, onDelete]);
@@ -25,38 +23,26 @@ const KeepListItem = ({ keep, isOpen, onDelete, onOpen, onClose }: Props) => {
     onOpen(keep.id);
   }, [keep, onOpen]);
 
-  const onPreviewClick = useCallback(() => {
-    setEdit(true);
-  }, []);
+  const onControllerEditClick = useCallback(() => {
+    onEditClick(keep.id);
+  }, [keep, onEditClick]);
 
-  const onEditorBlur = useCallback(() => {
-    const value = '';
-    onClose(keep.id, value);
-    setEdit(false);
-  }, [keep.id, onClose]);
-
-  const onEditorChange = useCallback((value: string) => {}, []);
-
-  const onModalClose = useCallback(() => {
-    onClose(keep.id, keep.value);
-  }, [keep.id, keep.value, onClose]);
-
-  const cns = clsx(styles.root, { [styles.open]: isOpen });
+  const onControllerPreviewClick = useCallback(() => {
+    onPreviewClick(keep.id);
+  }, [keep, onPreviewClick]);
 
   return (
-    <>
-      <div className={cns} onClick={onItemOpen}>
-        <KeepPreview className={styles.KeepListItem} keep={keep} onDelete={onDeleteClick} onEdit={onPreviewClick} />
-      </div>
-      <Modal className={styles.modal} isOpen={isOpen} outSideClick={onModalClose}>
-        {isEdit ? (
-          <Editor defaultValue={keep.value} onBlur={onEditorBlur} onChange={onEditorChange} />
-        ) : (
-          <KeepPreview className={styles.KeepListItem} keep={keep} onDelete={onDeleteClick} onEdit={onPreviewClick} />
-        )}
-      </Modal>
-    </>
+    <div className={clsx(styles.root, className, { [styles.open]: keep.isOpen })} onClick={onItemOpen}>
+      <Preview value={keep.value} onClick={onItemOpen} />
+      <Controller
+        className={styles.controller}
+        isEditing={keep.isEditing}
+        onEdit={onControllerEditClick}
+        onPreview={onControllerPreviewClick}
+        onDelete={onDeleteClick}
+      />
+    </div>
   );
 };
 
-export default memo((props: Props) => <KeepListItem {...props} />);
+export default KeepListItem;
