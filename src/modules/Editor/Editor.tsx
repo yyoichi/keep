@@ -8,21 +8,22 @@ interface Props {
   onBlur: (value: string) => void;
 }
 
-const Editor = (props: Props) => {
-  const cns = useMemo(() => clsx(styles.Editor, props.className), [props.className]);
+const Editor = ({ className, defaultValue, onBlur }: Props) => {
+  const rootClass = useMemo(() => clsx(styles.Editor, className), [className]);
   const editor = useRef<HTMLDivElement>(null);
 
+  // Set default value
   useEffect(() => {
-    editor.current.innerText = props.defaultValue || '';
+    editor.current.innerText = defaultValue || '';
     editor.current.focus();
-  }, [props.defaultValue]);
+  }, [defaultValue]);
 
-  const onBlur = useCallback(() => {
-    const text = editor.current.innerText.replace(/\n{3,}/gm, '\n\n');
-    props.onBlur && props.onBlur(text);
-  }, [props]);
+  const onEditorBlur = useCallback(() => {
+    const value = editor.current.innerText.replace(/\n{3,}/gm, '\n\n').trim();
+    onBlur(value);
+  }, [onBlur]);
 
-  return <div className={cns} onBlur={onBlur} ref={editor} contentEditable />;
+  return <div className={rootClass} onBlur={onEditorBlur} ref={editor} contentEditable />;
 };
 
 export default Editor;

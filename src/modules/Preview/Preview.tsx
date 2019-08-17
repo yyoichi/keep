@@ -10,16 +10,16 @@ interface Props {
   onClick?: () => void;
 }
 
-const Preview = (props: Props) => {
-  const cns = useMemo(() => clsx(styles.Preview, props.className), [props.className]);
+const Preview = ({ className, value, onClick }: Props) => {
+  const rootClass = useMemo(() => clsx(styles.root, className), [className]);
 
-  const onClick = useCallback(() => {
-    props.onClick && props.onClick();
-  }, [props]);
+  const onPreviewClick = useCallback(() => {
+    onClick && onClick();
+  }, [onClick]);
 
   return (
-    <div className={cns} onClick={onClick}>
-      <ReactMarkdown source={props.value} plugins={[breaks]} />
+    <div className={rootClass} onClick={onPreviewClick}>
+      <ReactMarkdown source={value} plugins={[breaks]} />
     </div>
   );
 };
