@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import { generateId } from '../../utils';
+import nanoid from 'nanoid';
 import { keepActions } from '../../store/keeps';
 import Editor from '../../modules/Editor/Editor';
 import styles from './AddFormContainer.css';
@@ -18,7 +18,7 @@ const AddFormContainer = () => {
       toggleOpen(isOpen => !isOpen);
 
       if (value) {
-        dispatch(keepActions.add({ id: generateId(), value: value, isOpen: false, isEditing: false }));
+        dispatch(keepActions.add({ id: nanoid(), value: value, isOpen: false, isEditing: false }));
       }
     },
     [dispatch]

@@ -37,6 +37,10 @@ const KeepModalContainer = () => {
     dispatch(keepActions.preview(keep.id));
   }, [keep, dispatch]);
 
+  const onControllerDeleteClick = useCallback(() => {
+    dispatch(keepActions.delete(keep.id));
+  }, [keep, dispatch]);
+
   return keep ? (
     <Modal className={styles.root} isOpen={keep.isOpen} outSideClick={onOutSideClick}>
       {keep.isEditing ? (
@@ -48,7 +52,7 @@ const KeepModalContainer = () => {
         isEditing={keep.isEditing}
         onEdit={onControllerEditClick}
         onPreview={onControllerPreviewClick}
-        onDelete={() => {}}
+        onDelete={onControllerDeleteClick}
       />
     </Modal>
   ) : null;

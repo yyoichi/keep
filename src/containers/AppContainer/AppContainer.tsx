@@ -4,11 +4,11 @@ import { RootState } from '../../store';
 import { keepActions } from '../../store/keeps';
 import AddFormContainer from '../AddFormContainer/AddFormContainer';
 import KeepListContainer from '../KeepListContainer/KeepListContainer';
-import KeepModal from '../KeepModalContainer/KeepModalContainer';
+import KeepModalContainer from '../KeepModalContainer/KeepModalContainer';
 
 const keepsSelector = (state: RootState) => state.keeps;
 
-const App = () => {
+const AppContainer = () => {
   const keeps = useSelector(keepsSelector);
   const dispatch = useDispatch();
 
@@ -29,9 +29,9 @@ const App = () => {
     <div>
       <AddFormContainer />
       <KeepListContainer />
-      <KeepModal />
+      <KeepModalContainer />
     </div>
   );
 };
 
-export default App;
+export default AppContainer;
