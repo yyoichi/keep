@@ -17,18 +17,16 @@ const Modal = ({ className, isOpen, outSideClick, children }: Props) => {
     outSideClick();
   }, [outSideClick]);
 
-  const modalClass = useMemo(() => clsx(styles.modal, className), [className]);
-
   const Modal = useMemo(
     () =>
       createPortal(
         <>
           <div className={styles.outside} onClick={onOutSideClick} />
-          <div className={modalClass}>{children}</div>
+          <div className={clsx(styles.modal, className)}>{children}</div>
         </>,
         rootEle
       ),
-    [modalClass, children, onOutSideClick]
+    [className, children, onOutSideClick]
   );
 
   return isOpen ? Modal : null;

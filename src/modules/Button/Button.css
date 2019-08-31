@@ -1,0 +1,14 @@
+.root {
+  background-color: var(--button-color);
+  border: none;
+  color: white;
+  border-radius: 4px;
+  padding: 8px 17px;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: none;
+}
+
+.root:hover {
+  background-color: var(--button-hover-color);
+}

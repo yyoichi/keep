@@ -1,5 +1,8 @@
 import React, { useCallback } from 'react';
 import clsx from 'clsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import IconButton from '../IconButton/IconButton';
 import styles from './Controller.css';
 
 interface Props {
@@ -26,17 +29,17 @@ const Controller = ({ className, isEditing, onEdit, onPreview, onDelete }: Props
   return (
     <div className={clsx(styles.root, className)}>
       {isEditing ? (
-        <button className={styles.previewButton} onClick={onPreviewClick}>
-          Preview
-        </button>
+        <IconButton className={clsx(styles.button, styles.previewButton)} onClick={onPreviewClick} title="Preview">
+          <FontAwesomeIcon icon={faEye} />
+        </IconButton>
       ) : (
-        <button className={styles.edit} onClick={onEditClick}>
-          Edit
-        </button>
+        <IconButton className={clsx(styles.button, styles.editButton)} onClick={onEditClick} title="Edit">
+          <FontAwesomeIcon icon={faEdit} />
+        </IconButton>
       )}
-      <button className={styles.delete} onClick={onDeleteClick}>
-        ×
-      </button>
+      <IconButton className={clsx(styles.button, styles.deleteButton)} onClick={onDeleteClick} title="Delete">
+        <FontAwesomeIcon icon={faTrash} />
+      </IconButton>
     </div>
   );
 };

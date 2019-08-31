@@ -3,12 +3,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 36px;
-  background-color: #a0a0a0;
+  height: 40px;
+  background-color: #e6e6e6;
+  display: flex;
+  align-items: center;
 }
 
-.edit {
-}
-
-.delete {
+.button {
+  margin-left: 12px;
 }

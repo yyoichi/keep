@@ -17,9 +17,9 @@
 }
 
 .root:hover .controller {
-  display: block;
+  visibility: visible;
 }
 
 .controller {
-  display: none;
+  visibility: hidden;
 }

@@ -1,0 +1,8 @@
+:root {
+  --primary-color: #2f004f;
+  --border-color: #bdbdbd;
+
+  /* Button */
+  --button-color: #2f004f;
+  --button-hover-color: #4d0082;
+}

@@ -1,3 +1,8 @@
+.root {
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+}
+
 .editor,
 .preview {
   width: 600px;
