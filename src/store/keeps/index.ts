@@ -5,6 +5,7 @@ export interface Keep {
   value: string;
   isOpen: boolean;
   isEditing: boolean;
+  isPined: boolean;
 }
 
 interface KeepAddAction extends Action {
@@ -57,6 +58,20 @@ interface KeepPreviewAction extends Action {
   };
 }
 
+interface KeepPinAction extends Action {
+  type: '@@keep/pin';
+  payload: {
+    id: string;
+  };
+}
+
+interface KeepUnPinAction extends Action {
+  type: '@@keep/unPin';
+  payload: {
+    id: string;
+  };
+}
+
 interface KeepSaveAction extends Action {
   type: '@@keep/save';
 }
@@ -69,6 +84,8 @@ export type KeepActionTypes =
   | KeepCloseAction
   | KeepEditAction
   | KeepPreviewAction
+  | KeepPinAction
+  | KeepUnPinAction
   | KeepSaveAction;
 
 export const keepActions = {
@@ -111,6 +128,18 @@ export const keepActions = {
   }),
   preview: (id: string): KeepActionTypes => ({
     type: '@@keep/preview',
+    payload: {
+      id
+    }
+  }),
+  pin: (id: string): KeepActionTypes => ({
+    type: '@@keep/pin',
+    payload: {
+      id
+    }
+  }),
+  unPin: (id: string): KeepActionTypes => ({
+    type: '@@keep/unPin',
     payload: {
       id
     }
@@ -190,6 +219,26 @@ export const keepsReducer = (state: KeepsState = { items: [] }, action: KeepActi
         items: state.items.map(item => {
           if (item.id === action.payload.id) {
             item.isEditing = false;
+          }
+          return item;
+        })
+      };
+    case '@@keep/pin':
+      return {
+        ...state,
+        items: state.items.map(item => {
+          if (item.id === action.payload.id) {
+            item.isPined = true;
+          }
+          return item;
+        })
+      };
+    case '@@keep/unPin':
+      return {
+        ...state,
+        items: state.items.map(item => {
+          if (item.id === action.payload.id) {
+            item.isPined = false;
           }
           return item;
         })

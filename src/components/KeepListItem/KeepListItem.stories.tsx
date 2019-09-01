@@ -8,10 +8,12 @@ storiesOf('KeepListItem', module)
   .addDecorator(story => <Provider store={store}>{story()}</Provider>)
   .add('default', () => (
     <KeepListItem
-      keep={{ id: 'a', value: 'test', isOpen: false, isEditing: false }}
+      keep={{ id: 'a', value: 'test', isOpen: false, isEditing: false, isPined: false }}
       onDelete={() => {}}
       onEditClick={() => {}}
       onOpen={() => {}}
       onPreviewClick={() => {}}
+      onPinClick={() => {}}
+      onUnPinClick={() => {}}
     />
   ));

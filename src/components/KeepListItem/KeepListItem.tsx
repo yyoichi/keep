@@ -12,34 +12,57 @@ interface Props {
   onOpen: (id: string) => void;
   onEditClick: (id: string) => void;
   onPreviewClick: (id: string) => void;
+  onPinClick: (id: string) => void;
+  onUnPinClick: (id: string) => void;
 }
 
-const KeepListItem = ({ className, keep, onDelete, onOpen, onEditClick, onPreviewClick }: Props) => {
+const KeepListItem = ({
+  className,
+  keep,
+  onDelete,
+  onOpen,
+  onEditClick,
+  onPreviewClick,
+  onPinClick,
+  onUnPinClick
+}: Props) => {
   const onDeleteClick = useCallback(() => {
     onDelete(keep.id);
   }, [keep, onDelete]);
 
-  const onItemOpen = useCallback(() => {
+  const onItemClick = useCallback(() => {
     onOpen(keep.id);
   }, [keep, onOpen]);
 
   const onControllerEditClick = useCallback(() => {
     onEditClick(keep.id);
-  }, [keep, onEditClick]);
+    onOpen(keep.id);
+  }, [keep, onEditClick, onOpen]);
 
   const onControllerPreviewClick = useCallback(() => {
     onPreviewClick(keep.id);
   }, [keep, onPreviewClick]);
 
+  const onControllerPinClick = useCallback(() => {
+    onPinClick(keep.id);
+  }, [keep, onPinClick]);
+
+  const onControllerUnPinClick = useCallback(() => {
+    onUnPinClick(keep.id);
+  }, [keep, onUnPinClick]);
+
   return (
-    <div className={clsx(styles.root, className, { [styles.open]: keep.isOpen })} onClick={onItemOpen}>
-      <Preview value={keep.value} onClick={onItemOpen} />
+    <div className={clsx(styles.root, className, { [styles.open]: keep.isOpen })}>
+      <Preview value={keep.value} onClick={onItemClick} />
       <Controller
         className={styles.controller}
         isEditing={keep.isEditing}
+        isPined={keep.isPined}
         onEdit={onControllerEditClick}
         onPreview={onControllerPreviewClick}
         onDelete={onDeleteClick}
+        onPin={onControllerPinClick}
+        onUnPin={onControllerUnPinClick}
       />
     </div>
   );

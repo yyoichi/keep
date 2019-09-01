@@ -41,19 +41,55 @@ const KeepListContainer = () => {
     [dispatch]
   );
 
+  const onPinClick = useCallback(
+    (id: string) => {
+      dispatch(keepActions.pin(id));
+    },
+    [dispatch]
+  );
+
+  const onUnPinClick = useCallback(
+    (id: string) => {
+      dispatch(keepActions.unPin(id));
+    },
+    [dispatch]
+  );
+
   return (
-    <KeepList className={styles.root}>
-      {keeps.items.map(item => (
-        <KeepListItem
-          keep={item}
-          onDelete={onDelete}
-          onOpen={onOpen}
-          onEditClick={onEditClick}
-          onPreviewClick={onPreviewClick}
-          key={item.id}
-        />
-      ))}
-    </KeepList>
+    <div className={styles.root}>
+      <KeepList className={styles.pins} label="Pins">
+        {keeps.items.map(item =>
+          item.isPined ? (
+            <KeepListItem
+              keep={item}
+              onDelete={onDelete}
+              onOpen={onOpen}
+              onEditClick={onEditClick}
+              onPreviewClick={onPreviewClick}
+              onPinClick={onPinClick}
+              onUnPinClick={onUnPinClick}
+              key={item.id}
+            />
+          ) : null
+        )}
+      </KeepList>
+      <KeepList className={styles.others} label="Others">
+        {keeps.items.map(item =>
+          !item.isPined ? (
+            <KeepListItem
+              keep={item}
+              onDelete={onDelete}
+              onOpen={onOpen}
+              onEditClick={onEditClick}
+              onPreviewClick={onPreviewClick}
+              onPinClick={onPinClick}
+              onUnPinClick={onUnPinClick}
+              key={item.id}
+            />
+          ) : null
+        )}
+      </KeepList>
+    </div>
   );
 };
 

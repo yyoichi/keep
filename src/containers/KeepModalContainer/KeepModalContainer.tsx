@@ -37,6 +37,14 @@ const KeepModalContainer = () => {
     dispatch(keepActions.preview(keep.id));
   }, [keep, dispatch]);
 
+  const onControllerPinClick = useCallback(() => {
+    dispatch(keepActions.pin(keep.id));
+  }, [keep, dispatch]);
+
+  const onControllerUnPinClick = useCallback(() => {
+    dispatch(keepActions.unPin(keep.id));
+  }, [keep, dispatch]);
+
   const onControllerDeleteClick = useCallback(() => {
     dispatch(keepActions.delete(keep.id));
   }, [keep, dispatch]);
@@ -50,8 +58,11 @@ const KeepModalContainer = () => {
       )}
       <Controller
         isEditing={keep.isEditing}
+        isPined={keep.isPined}
         onEdit={onControllerEditClick}
         onPreview={onControllerPreviewClick}
+        onPin={onControllerPinClick}
+        onUnPin={onControllerUnPinClick}
         onDelete={onControllerDeleteClick}
       />
     </Modal>

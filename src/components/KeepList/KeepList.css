@@ -1,4 +1,8 @@
-.root {
+.label {
+  margin: 15px 5px 3px;
+}
+
+.list {
   display: flex;
   flex-wrap: wrap;
 }

@@ -19,7 +19,8 @@ storiesOf('KeepModalContainer', module)
             id: 'a',
             value: 'test',
             isEditing,
-            isOpen: true
+            isOpen: true,
+            isPined: false
           }
         ]
       }

@@ -13,7 +13,8 @@ const store = mockStore({
         id: 'a',
         value: 'test',
         isEditing: false,
-        isOpen: false
+        isOpen: false,
+        isPined: true
       }
     ]
   }
