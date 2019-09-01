@@ -60,7 +60,19 @@ const development = config => ({
 const production = config => ({
   ...config,
   mode: 'production',
-  plugins: [...config.plugins, new OptimizeCssAssetsPlugin()]
+  plugins: [...config.plugins, new OptimizeCssAssetsPlugin()],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /node_modules/,
+          filename: 'vendor.js'
+        }
+      }
+    }
+  }
 });
 
 module.exports = (env, args) => {
